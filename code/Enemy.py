@@ -12,26 +12,21 @@ class Enemy(Entity):
 
         if self.name == 'Enemy3':
             self.y_direction = -1  # Começa subindo
-            self.y_speed = ENTITY_SPEED[self.name]
-            self.x_speed = ENTITY_SPEED[self.name]
-            self.margin = 1  # Margem de segurança para troca de direção
 
     def move(self):
         if self.name != 'Enemy3':
             self.rect.centerx -= ENTITY_SPEED[self.name]
         else:
-            # Movimento exclusivo do Enemy3
-            self.rect.centerx -= self.x_speed
-
+            self.rect.centerx -= ENTITY_SPEED[self.name]
 
             if self.y_direction == -1:  # Movendo para cima
-                self.rect.centery += self.y_speed * self.y_direction
+                self.rect.centery += ENTITY_SPEED[self.name] * self.y_direction
             else:  # Movendo para baixo
-                self.rect.centery += self.y_speed * 2 * self.y_direction
+                self.rect.centery += ENTITY_SPEED[self.name] * 2 * self.y_direction
 
-            if self.rect.top <= self.margin:
+            if self.rect.top <= 0:
                 self.y_direction = 1  # Muda para descer
-            elif self.rect.bottom >= WIN_HEIGHT - self.margin:
+            elif self.rect.bottom >= WIN_HEIGHT:
                 self.y_direction = -1  # Muda para subir
 
     def shoot(self):
